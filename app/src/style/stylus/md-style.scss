@@ -1,0 +1,14 @@
+@import "./material-design/md-color.scss";
+
+//------------------------------------------------------------------------------
+// Custom Styles
+$md-primaryColor: $md-orange-500;
+$md-primaryTextColor: $md-white;
+$md-textColor: $md-grey-900;
+$md-windowBackground: $md-grey-50;
+
+@import "./material-design/md-breakpoint.scss";
+@import "./material-design/md-typography.scss";
+@import "./material-design/md-dimensions.scss";
+@import "./material-design/md-shadow.scss";
+$ease-slide: cubic-bezier(0.325, 0.710, 0.345, 0.980);
