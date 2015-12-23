@@ -1,0 +1,56 @@
+.GameBoard {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.GameBoard__base {
+	display: flex;
+	position: relative;
+	width: 400px;
+	height: 400px;
+	flex-wrap: wrap;
+	align-content: flex-start;
+	align-items: flex-start;
+	border: 1px solid #000;
+}
+.GameBoard__cell {
+	position: relative;
+	width: 12.5%;
+	height: 12.5%;
+	border: 1px solid #000;
+	box-sizing: border-box;
+	background: #080;
+
+	&.is-putable {
+		background: #3c3;
+		cursor: pointer;
+	}
+}
+.GameBoard__cellInner {
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	bottom: 5px;
+	right: 5px;
+	border-radius: 50%;
+	border: 1px solid transparent;
+
+	&.is-empty {
+		background: none;
+		border-color: transparent;
+	}
+	&.is-black {
+		background: #000;
+		border-color: #000;
+	}
+	&.is-white {
+		background: #fff;
+		border-color: #000;
+	}
+}

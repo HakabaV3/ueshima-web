@@ -10,7 +10,7 @@ export default class LoginForm extends Component {
     constructor() {
         super();
         this.state = {
-            value: ''
+            username: ''
         };
         GameStore.subscribe(() => this.setState());
     }
@@ -23,13 +23,8 @@ export default class LoginForm extends Component {
 
     _onSubmit(ev) {
         ev.preventDefault();
-        UserStore.pCreate(this.state.value)
-            .then(user => {
-                console.log(user);
-            })
-            .catch(e => {
-                console.error(e);
-            })
+        UserStore.pCreate(this.state.username)
+            .catch(e => console.error(e));
     }
 
     render() {

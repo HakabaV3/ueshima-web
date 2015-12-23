@@ -1,7 +1,7 @@
 .GameList {
 	list-style: none;
 	padding: 0;
-	margin: 16px 0 0;
+	margin: 0;
 	position: relative;
 	width: 100%;
 }
@@ -20,4 +20,23 @@
 	&.is-selected {
 		background: rgba(#f00, 0.1);
 	}
+	&.is-myturn {
+		.GameList__itemTitle {
+			font-weight: bold;
+		}
+	}
+	&:not(.is-myturn) {
+		.GameList__itemTitle {
+			color: #888;
+		}
+	}
+}
+.GameList__itemTitle {
+	color: #000;
+	margin: 0;
+}
+.GameList__itemState {
+	margin: 0;
+	color: #888;
+	font-size: 0.75em;
 }

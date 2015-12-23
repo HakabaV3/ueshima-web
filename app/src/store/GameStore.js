@@ -5,8 +5,21 @@ export default new class extends Store {
 	constructor() {
 		super();
 		this.state = {
-			games: new Map()
+			games: new Map(),
+			timerId: null
 		};
+	}
+
+	startIntervalRequest(interval = 3000) {
+		this.state.timerId = setTimeout(() => {
+			this.pGetAll()
+				.then(() => this.startIntervalRequest());
+		}, interval);
+	}
+
+	stopIntervalRequest(interval = 3000) {
+		clearTimeout(this.state.timerId);
+		this.state.timerId = null;
 	}
 
 	/**
@@ -19,10 +32,10 @@ export default new class extends Store {
 				if (data.status !== 200) return Promise.reject(data.result);
 
 				const games = data.result.games
-                    .map(formatGame);
+					.map(formatGame);
 
 				games.forEach(game => {
-					this.state.plans.set(game.id, game);
+					this.state.games.set(game.id, game);
 				});
 				this.dispatch();
 
@@ -36,19 +49,7 @@ export default new class extends Store {
 	 * @return {Promise} 作成されたプラン
 	 */
 	pCreate(userName) {
-		// return API.pPost(`/game?name=${userName}`, {})
-		return Promise.resolve({
-			status: 200,
-			result: {
-				game: {
-					id: Math.random(),
-					players: ['(you)', userName],
-					turn: '1',
-					created: Date.now(),
-					updated: Date.now()
-				}
-			}
-		})
+		return API.pPost(`/game?name=${userName}`, {})
 			.then(data => {
 				if (data.status !== 200) return Promise.reject(data.result);
 
@@ -93,5 +94,6 @@ function formatGame(data) {
 		turn: data.turn,
 		created: data.created,
 		updated: data.updated,
+		moves: data.moves
 	};
 }

@@ -7,7 +7,6 @@ export default new class extends Store {
 		let username = localStorage.getItem('username'),
 			token = localStorage.getItem('token');
 
-			console.log(username, token);
 		if (username && token) {
 			this.state = {
 				users: new Map(),
@@ -34,7 +33,7 @@ export default new class extends Store {
 				if (data.status !== 200) return Promise.reject(data.result);
 
 				const user = formatUser(data.result.user);
-				this.state.users.set(id, user);
+				this.state.users.set(user.id, user);
 				this.state.username = user.name;
 				localStorage.setItem('username', user.name)
 				localStorage.setItem('token', data.result.user.token);

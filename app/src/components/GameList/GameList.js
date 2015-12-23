@@ -23,16 +23,24 @@ export default class GameList extends Component {
     }
 
     render() {
-        let games = Array.from(GameStore.state.games.values())
+        let username = UserStore.state.username,
+            games = Array.from(GameStore.state.games.values())
             .map(game => {
+                let isMyTurn = game.turn === username;
                 return (
                     <li className={classNames({
                             'GameList__item': true,
+                            'is-myturn': isMyTurn,
                             'is-selected': game.id === this.state.selectedId
                         })}
                         key={ game.id }
                         onClick={ () => this._onSelect(game) }>
-                        { game.players.join(' vs ') }
+                        <p className="GameList__itemTitle">
+                            { game.players.join(' vs ') }
+                        </p>
+                        <p className="GameList__itemState">
+                            { isMyTurn ? 'your turn' : 'pending...'}
+                        </p>
                     </li>
                 );
             });

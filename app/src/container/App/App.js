@@ -5,16 +5,38 @@ import React, { Component } from 'react'
 import GameList from 'components/GameList/GameList'
 import GameCreateForm from 'components/GameCreateForm/GameCreateForm'
 import LoginForm from 'components/LoginForm/LoginForm'
+import GameBoard from 'components/GameBoard/GameBoard'
 
 import UserStore from 'store/UserStore'
+import GameStore from 'store/GameStore'
 
 export default class App extends Component {
 
     constructor() {
         super();
-        UserStore.subscribe(() => this.setState());
+
+        this.state = {
+            selectedGame: null
+        };
+
+        UserStore.subscribe(() => this._onUserStoreUpdate());
+        this._onUserStoreUpdate();
     }
+
+    _onUserStoreUpdate() {
+        if (UserStore.state.username) {
+            GameStore.startIntervalRequest();
+        } else {
+            GameStore.stopIntervalRequest();
+        }
+        this.setState();
+    }
+
     _onSelectGame(selectedGame) {
+        this.setState({
+            selectedGame: selectedGame
+        });
+
         console.log(selectedGame);
     }
 
@@ -30,17 +52,19 @@ export default class App extends Component {
                     <GameList
                         ref="gameList"
                         onSelect={ game => this._onSelectGame(game) }/>
-                    <input type="button"
-                        value="Log Out"
-                        onClick={ ev => this._onLogoutClick(ev) } />
+                    <footer>
+                        <span>
+                            { UserStore.state.username }
+                        </span>
+                        <input type="button"
+                            value="Log Out"
+                            onClick={ ev => this._onLogoutClick(ev) } />
+                    </footer>
                 </div>
                 <div className="App__MainColumn">
-                    &nbsp;
+                    <GameBoard game={ this.state.selectedGame }/>
                 </div>
 
-                <div className="App__accountBox">
-                    { UserStore.state.username }
-                </div>
                 { !UserStore.state.username ? <LoginForm /> : null }
             </div>
         );
