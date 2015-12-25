@@ -32,8 +32,19 @@
 }
 .App__MainColumn {
 	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: center;
 	flex: 1;
-	background: #fcfcfc;
+	background: #f8f8f8;
+	box-sizing: border-box;
+}
+.App__GameWrapper {
+	position: relative;
+	width: 100%;
+	flex: 1;
 	padding: 16px;
 	box-sizing: border-box;
+	overflow: scroll;
 }

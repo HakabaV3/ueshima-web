@@ -6,6 +6,7 @@ import GameList from 'components/GameList/GameList'
 import GameCreateForm from 'components/GameCreateForm/GameCreateForm'
 import LoginForm from 'components/LoginForm/LoginForm'
 import GameBoard from 'components/GameBoard/GameBoard'
+import MessageForm from 'components/MessageForm/MessageForm'
 
 import UserStore from 'store/UserStore'
 import GameStore from 'store/GameStore'
@@ -20,6 +21,7 @@ export default class App extends Component {
         };
 
         UserStore.subscribe(() => this._onUserStoreUpdate());
+        GameStore.subscribe(() => this._onGameStoreUpdate());
         this._onUserStoreUpdate();
     }
 
@@ -30,6 +32,14 @@ export default class App extends Component {
             GameStore.stopIntervalRequest();
         }
         this.setState();
+    }
+
+    _onGameStoreUpdate() {
+        if (this.state.selectedGame) {
+            this.setState({
+                selectedGame: GameStore.state.games.get(this.state.selectedGame.id)
+            });
+        }
     }
 
     _onSelectGame(selectedGame) {
@@ -60,7 +70,10 @@ export default class App extends Component {
                     </footer>
                 </div>
                 <div className="App__MainColumn">
-                    <GameBoard game={ this.state.selectedGame }/>
+                    <div className="App__GameWrapper">
+                        <GameBoard game={ this.state.selectedGame }/>
+                    </div>
+                    <MessageForm game={ this.state.selectedGame }/>
                 </div>
 
                 { !UserStore.state.username ? <LoginForm /> : null }

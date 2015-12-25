@@ -80,6 +80,25 @@ export default new class extends Store {
 				return game;
 			});
 	}
+
+	/**
+	 * メッセージを送る
+	 * @param  {Object} game ゲーム
+	 * @param  {string} text メッセージ
+	 * @return {Promise} 結果
+	 */
+	pSendMessage(game, text) {
+		return API.pPost(`/game/${game.id}/chat?text=${text}`, {})
+			.then(data => {
+				if (data.status !== 200) return Promise.reject(data.result);
+
+				const game = formatGame(data.result.game);
+				this.state.games.set(game.id, game);
+				this.dispatch();
+
+				return game;
+			});
+	}
 }
 
 /**
@@ -94,6 +113,7 @@ function formatGame(data) {
 		turn: data.turn,
 		created: data.created,
 		updated: data.updated,
-		moves: data.moves
+		moves: data.moves,
+		chats: data.chats.reverse()
 	};
 }
