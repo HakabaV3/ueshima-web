@@ -143,8 +143,13 @@ export default class GameBoard extends Component {
     onClickCell(x, y) {
         if (!this.checkIsPuttable(x, y)) return false;
 
-        this.put(x, y);
-        GameStore.pSetMove(this.state.game, x, y);
+        GameStore.pSetMove(this.state.game, x, y)
+            .then(() => {
+                this.put(x, y);
+            })
+            .error(err => {
+                console.error(err);
+            });
     }
 
     render() {

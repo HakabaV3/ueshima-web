@@ -36,8 +36,6 @@ export default class App extends Component {
         this.setState({
             selectedGame: selectedGame
         });
-
-        console.log(selectedGame);
     }
 
     _onLogoutClick(ev) {
