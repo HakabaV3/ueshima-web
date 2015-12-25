@@ -1,0 +1,50 @@
+.MessageSendForm {
+	display: flex;
+	position: relative;
+	flex-direction: row;
+	align-items: stretch;
+	justify-content: center;
+	height: 50px;
+	border-top: 1px solid #000;
+
+	&[disabled] {
+		background: #ccc;
+	}
+}
+.MessageSendForm__text {
+	background: #fff;
+	border: none;
+	outline: none;
+	flex: 1;
+	resize: none;
+	padding: 8px;
+	box-sizing: border-box;
+	font: inherit;
+
+	&[disabled] {
+		background: #ccc;
+	}
+}
+.MessageSendForm__submit {
+	position: relative;
+	display: block;
+	height: 50px;
+	width: 100px;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	outline: none;
+	font: inherit;
+	color: #aaa;
+
+	&[disabled] {
+		background: #ccc;
+	}
+	&:hover,
+	&:focus {
+		color: #888;
+	}
+	&:active {
+		color: #444;
+	}
+}
