@@ -1,8 +1,8 @@
 import 'whatwg-fetch'
 
 const HEADER_KEY_TOKEN = 'X-Session-Token';
-const HOST = 'http://localhost:3000/api/v1';
-// const HOST = 'http://ueshima.hakaba.xyz/api/v1';
+// const HOST = 'http://localhost:3000/api/v1';
+const HOST = 'http://ueshima.hakaba.xyz/api/v1';
 
 function pipeRes2JSON(res) {
 	return res.json();

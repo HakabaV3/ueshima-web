@@ -147,7 +147,7 @@ export default class GameBoard extends Component {
             .then(() => {
                 this.put(x, y);
             })
-            .error(err => {
+            .catch(err => {
                 console.error(err);
             });
     }
