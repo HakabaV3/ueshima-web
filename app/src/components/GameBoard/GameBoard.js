@@ -158,8 +158,8 @@ export default class GameBoard extends Component {
             game = this.state.game;
 
         if (game) {
-            for (let x = 1; x <= 8; x++) {
-                for (let y = 1; y <= 8; y++) {
+            for (let y = 1; y <= 8; y++) {
+                for (let x = 1; x <= 8; x++) {
                     cells.push(
                         <div className={classNames({
                                 'GameBoard__cell': true,
